@@ -4,15 +4,17 @@ import NoteItem from "./NoteItem";
 
 interface NoteListProps {
 	notes: Note[];
+	onDelete: (id: string) => void;
+	onEdit: (id: string, text: string) => void;
 };
 
-const NoteList = ({ notes }: NoteListProps) => {
+const NoteList = ({ notes, onDelete, onEdit }: NoteListProps) => {
 	return (
 		<View>
 			<FlatList
 				data={notes}
-				keyExtractor={(item) => item.id.toString()}
-				renderItem={({ item }) => <NoteItem note={item} />}
+				keyExtractor={(item) => item.$id}
+				renderItem={({ item }) => <NoteItem note={item} onDelete={onDelete} onEdit={onEdit} />}
 			/>
 		</View>
 	);
